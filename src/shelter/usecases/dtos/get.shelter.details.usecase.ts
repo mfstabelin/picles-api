@@ -6,8 +6,8 @@ export default class getShelterDetailsUseCAse implements IUseCase<null, getShelt
         return Promise.resolve(new getShelterDetailsUseCAseOutPut({
             shelterName: 'Abrigo de Teste',
             shelterEmail: 'abrigoteste@gmail.com',
-            shelterPhone: '1999885454',
-            shelterWhatsApp: '19986652254',
+            shelterPhone: '19998854549',
+            shelterWhatsApp: '19986652259',
             createdAt: new Date(),
             updatedAt: new Date()
         }))
