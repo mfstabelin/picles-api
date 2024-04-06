@@ -6,13 +6,13 @@ export type shelterDocument = HydratedDocument<Shelter>
 @Schema({versionKey:false})
 export class Shelter {
     @Prop({required:true})
-    name:String
+    name:string
     @Prop({required:true})
-    whatsapp:String
+    whatsapp:string
     @Prop({required:true})
-    email:String
+    email:string
     @Prop({required:true})
-    phone:String
+    phone:string
     @Prop({required:true})
     createdAt: Date
     @Prop({required:true})
