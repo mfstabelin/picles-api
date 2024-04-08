@@ -1,7 +1,7 @@
 import { IUseCase } from "src/domain/iusecase.interface";
-import UpdateShelterDetailsUseCaseInput from "./UpdateShelterDetilsUseCaseInput";
-import UpdateShelterDetailsUseCaseOutput from "./UpdateShelterDetilsUseCaseOutput";
 import { Injectable } from "@nestjs/common";
+import UpdateShelterDetailsUseCaseInput from "./dtos/UpdateShelterDetilsUseCaseInput";
+import UpdateShelterDetailsUseCaseOutput from "./dtos/UpdateShelterDetilsUseCaseOutput";
 
 @Injectable()
 export default class UpdateShelterDetailsUseCase implements IUseCase<UpdateShelterDetailsUseCaseInput, UpdateShelterDetailsUseCaseOutput>

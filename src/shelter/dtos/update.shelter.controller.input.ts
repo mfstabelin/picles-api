@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsNumberString, IsString, Length } from "class-validator"
+import { IsEmail, IsNotEmpty, IsNumberString, IsString, Length } from "class-validator"
 
 export default class updateShelterControllerInput{
     @IsString()

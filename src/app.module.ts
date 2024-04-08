@@ -11,8 +11,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: async (config: ConfigService) =>({ uri: config.get<string>('DB_CONECTION_STRING') }),
-  }),
-    ShelterModule,],
+  }),  
+  ShelterModule,
+],
   controllers: [AppController],
   providers: [AppService],
 })

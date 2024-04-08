@@ -3,7 +3,8 @@ import { IUseCase } from "src/domain/iusecase.interface";
 import ISshelterRepository from "src/shelter/interfaces/shelter.repository.interface";
 import { Inject } from "@nestjs/common";
 import ShelterTokens from "src/shelter/Shelter.token";
-import getShelterDetailsUseCaseOutPut from "./get.shelter.details.usecase.output";
+import getShelterDetailsUseCaseOutPut from "./dtos/get.shelter.details.usecase.output";
+
 
 export default class getShelterDetailsUseCAse implements IUseCase<null, getShelterDetailsUseCaseOutPut>{
     
