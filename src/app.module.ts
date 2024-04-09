@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ShelterModule } from './shelter/shelter.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PetModule } from './pet/pet.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -12,7 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     inject: [ConfigService],
     useFactory: async (config: ConfigService) =>({ uri: config.get<string>('DB_CONECTION_STRING') }),
   }),  
-  ShelterModule,
+  ShelterModule, PetModule,
 ],
   controllers: [AppController],
   providers: [AppService],

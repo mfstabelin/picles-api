@@ -1,6 +1,7 @@
+import { promises } from "dns";
 import { Shelter } from "../schemas/shelter.schemas";
 
-export default interface ISshelterRepository{
+export default interface IShelterRepository{
     get(): Promise<Shelter>;
-    
+    update(data: Partial<Shelter>): Promise<void>;    
 }
