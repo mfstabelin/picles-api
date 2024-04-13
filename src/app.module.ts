@@ -5,9 +5,15 @@ import { ShelterModule } from './shelter/shelter.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PetModule } from './pet/pet.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [ConfigModule.forRoot(),
+    //ServerStarticModule.forRoot({
+    //  rootPath: join(__dirname, '...', '../public'),
+    //  serverRoot: '/public',
+    //}),
+  MulterModule,
   MongooseModule.forRootAsync({
     imports: [ConfigModule],
     inject: [ConfigService],

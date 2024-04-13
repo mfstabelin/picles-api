@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Inject, NotFoundException, Param, Patch, Post, Put } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Inject, NotFoundException, Param, Patch, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import CreatePetUseCaseInput from './usecase/dtos/create.pet.usecase.input';
 import PetTokens from './pet.tokens';
 import { IUseCase } from 'src/domain/iusecase.interface';
@@ -11,6 +11,11 @@ import UpadatePetByIdUsecaseInput from './usecase/dtos/update.pet.by.id.usecase.
 import UpadatePetByIdUsecaseOutPut from './usecase/dtos/update.pet.by.id.usecase.output';
 import DeletePetByIdUseCase from './usecase/delete.pet.by.id.usecase';
 import DeletePetByIdUseCaseInput from './usecase/dtos/delete.pet.by.id.usecase.input';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerConfig from 'src/config/multer.config';
+import UpdatePetPhotoByIdUseCaseInput from './usecase/dtos/update.pet.photo.by.id.usecase.input';
+import UpdatePetPhotoByIdUseCaseOutput from './usecase/dtos/update.pet.photo.by.id.usecase.output';
+import GetPetsUseCaseInput from './usecase/dtos/get.pets.usecase.input';
 
 @Controller('pet')
 export class PetController {
@@ -27,10 +32,33 @@ export class PetController {
     @Inject(PetTokens.DeletePetByIdUseCase)
     private readonly deletePetByIdUseCase: IUseCase<GetPetByIdUseCaseInput, GetPetByIdUseCaseOutput>;
 
+    @Inject(PetTokens.UpdatePetPhotoByIdUseCase)
+    private readonly UpdatePetPhotoByIdUseCase: IUseCase<UpdatePetPhotoByIdUseCaseInput, UpdatePetPhotoByIdUseCaseOutput>;
+
     @Post()
     async creatPet(@Body() input: CreatPetControllerInput): Promise<CreatPetUseCaseOutput>{
         const useCaseInput = new CreatePetUseCaseInput({...input});
         return await this.createPetUseCase.run(useCaseInput);
+    }
+    
+    
+    @Get()
+    async getPets(
+        @Query('type') type?: string,
+        @Query('size') size?: string,
+        @Query('gender') gender?: string,
+        @Query('page') page?: string,
+        @Query('itemPerPage') itemPerPage?: string,
+    ){
+        const FIRST_PAGE = 1
+        const DEFAULT_ITENS_PER_PAGE = 10
+        const useCaseInput = new GetPetsUseCaseInput({
+            type: !!type ? type : null,
+            size: !!size ? size : null,
+            gender: !!gender ? gender : null,
+            page: !!page ? parseInt(page): FIRST_PAGE,
+            itemPerPage: !!itemPerPage ? parseInt(itemPerPage) : DEFAULT_ITENS_PER_PAGE
+        })
     }
     
     @Get('.id')
@@ -57,5 +85,23 @@ export class PetController {
         } catch (error) {
             throw new NotFoundException(JSON.parse(error.message)) 
         }
+    }
+
+    @Patch(':id/photo')
+    @UseInterceptors(FileInterceptor('photo', multerConfig))
+    async updatePhoto(
+        @UploadedFile() photo: Express.Multer.File,
+        @Param('id') id: string,
+    ): Promise<UpdatePetPhotoByIdUseCaseOutput>{
+        try {
+            const useCaseInput = new UpdatePetPhotoByIdUseCaseInput({
+                id,
+                photoPath: photo.path
+            })
+            return await this.UpdatePetPhotoByIdUseCase.run(useCaseInput) 
+        } catch (error) {
+            throw new NotFoundException(JSON.parse(error.message))
+        }
+        
     }
 }
