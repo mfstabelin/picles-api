@@ -9,17 +9,14 @@ import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [ConfigModule.forRoot(),
-    //ServerStarticModule.forRoot({
-    //  rootPath: join(__dirname, '...', '../public'),
-    //  serverRoot: '/public',
-    //}),
   MulterModule,
   MongooseModule.forRootAsync({
     imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: async (config: ConfigService) =>({ uri: config.get<string>('DB_CONECTION_STRING') }),
   }),  
-  ShelterModule, PetModule,
+  ShelterModule, 
+  PetModule,
 ],
   controllers: [AppController],
   providers: [AppService],

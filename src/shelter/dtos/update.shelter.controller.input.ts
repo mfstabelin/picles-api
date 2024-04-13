@@ -3,17 +3,18 @@ import { IsEmail, IsNotEmpty, IsNumberString, IsString, Length } from "class-val
 export default class updateShelterControllerInput{
     @IsString()
     @IsNotEmpty()
-    name: string
+    name: string;
     @IsString()
     @IsNotEmpty()
     @Length(10,11)
-    whatsapp: string
+    whatsapp: string;
     @IsNotEmpty()
     @IsString()
     @IsNumberString()
-    phone: string
+    @Length(10, 11)
+    phone: string;
     @IsNotEmpty()
     @IsString()
     @IsEmail()
-    email: string
+    email: string;
 }
