@@ -33,11 +33,11 @@ export default class GetPetsUseCase implements IUseCase<GetPetsUseCaseInput, Get
             petResponseList.push(PetResponse.fromPet(currentPet));
         }
 
-        const totalPage = Math.ceil(queryResponse.total / input.itemPerPage);
+        const totalPages = Math.ceil(queryResponse.total / input.itemPerPage);
 
         return new GetPetsUseCaseOutput({
             currentPage: input.page,
-            totalPage,
+            totalPages,
             items: petResponseList,
         });
     }

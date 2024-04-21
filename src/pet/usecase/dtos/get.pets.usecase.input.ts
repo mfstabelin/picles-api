@@ -6,6 +6,6 @@ export default class GetPetsUseCaseInput {
     itemPerPage?: number;
 
     constructor(data: Partial<GetPetsUseCaseInput>){
-
+        Object.assign(this, data)
     }
 }
