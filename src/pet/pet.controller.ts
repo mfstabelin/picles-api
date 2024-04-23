@@ -66,7 +66,7 @@ export class PetController {
         return await this.getPetsUseCase.run(useCaseInput);
     }
     
-    @Get('.id')
+    @Get(':id')
     async getPetById(@Param('id') id: string): Promise<GetPetByIdUseCaseOutput>{
         try {
             const useCaseInput = new GetPetByIdUseCaseInput({id})

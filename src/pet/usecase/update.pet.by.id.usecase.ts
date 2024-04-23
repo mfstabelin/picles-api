@@ -33,9 +33,9 @@ export default class UpdatePetByIdUseCase implements IUseCase<UpadatePetByIdUsec
 
         pet = await this.getPetById(input.id)
 
-        const petPhoto = !!pet.photo ? (await this.fileService.readFile(pet.photo)).toString('base64') : null;
+        const petPhoto = !!pet.photo ? (await this.fileService.readFileInBase64(pet.photo)) : null;
 
-        return new UpadatePetByIdUsecaseInput({
+        return new UpadatePetByIdUsecaseOutPut({
             id: pet._id,
             name: pet.name,
             type: pet.type,
